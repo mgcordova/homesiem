@@ -5,11 +5,8 @@ This tutorial outlines how to set up a basic home SIEM with Elastic, configure e
 
 <h2>Environments and Technologies Used</h2>
 
-- Microsoft Azure
-- Event Viewer
-- Remote Desktop Connection
-- Microsoft Sentinel
-- Log Analytics Workspace
+- Elastic SIEM
+- Linux Kali VM
 
 <h2>Operating Systems Used </h2>
 
@@ -17,7 +14,13 @@ This tutorial outlines how to set up a basic home SIEM with Elastic, configure e
 
 <h2>High-Level Deployment and Configuration Steps</h2>
 
-- 
+- Set up a free Elastic account
+- Install the Kali VM
+- Configure the Elastic Agent on the Linux VM to collect the logs and forward it to the SIEM.
+- Generate security events on the Kali VM
+- Query to find the security events in the Elastic SIEM.
+- Create a Dashboard to visualize security events.
+- Create alerts for security events.
 
 <h2>Set up an Elastic Account</h2>
 
@@ -71,15 +74,13 @@ Once the installation is complete, log in to the Kali VM using the credentials �
 
 <h2>Setting up the Agent to Collect Logs</h2>
 
-<p>Go to your Elasticsearch and search on the top right "Integrations</p>
+<p>Go to your deployment and select Open Kibana and search on the top right "Integrations</p>
 
-![image](https://github.com/user-attachments/assets/feaa6707-9383-4c18-abca-17012baa0014)
+![image](https://github.com/user-attachments/assets/f59a75a8-72a3-47d2-a1ec-46826ea1c5fc)
 
 <p>Install "Elastic Defend"</p>
 
 ![image](https://github.com/user-attachments/assets/cffef0c0-c032-46ec-82cd-0c29c456523d)
-
-![image](https://github.com/user-attachments/assets/42048553-6f12-42b2-88d2-c57235e26846)
 
 <p>Once installing you will be prompted to install Elastic Agent on your host. Copy the command paste it into your terminal</p>
 
@@ -101,5 +102,58 @@ Then type "sudo nmap -sS localhost"</p>
 
 ![image](https://github.com/user-attachments/assets/211dc5a2-68fb-4eef-897a-75ba3853238b)
 
+<h2>Querying for Security Events in the Elastic SIEM</h2>
 
+<p>Open the menu on the top left, click Discover and type in the search bar "process.args nmap". The nmap commands we put in the terminal should be in these logs</p>
 
+![image](https://github.com/user-attachments/assets/151278b5-808b-4d17-909f-61f8192a2765)
+
+<h2>Create a Dashboard to Visualize the Events</h2>
+
+<p>Go on the top right and search "Dashboards"</p>
+
+![image](https://github.com/user-attachments/assets/0eba3c0e-7b12-4bef-b43b-d933a9626270)
+
+<p>Click on the “Create dashboard” button on the top right to create a new dashboard.
+
+Click on the “Create Visualization” button to add a new visualization to the dashboard.
+
+Select “Bar” as the visualization type. This will create a chart that shows the count of events over time.
+
+In the “Metrics” section of the visualization editor on the right, select “Count” as the vertical field type and “Timestamp” for the horizontal field. This will show the count of events over time.</p>
+
+![image](https://github.com/user-attachments/assets/1be6fde3-177a-4a27-b38b-76da03c3e879)
+
+<p>Add some more events by typing the following commands in the Linux Terminal
+
+"sudo -l"
+
+"sudo ps"
+
+"mkdir foobar"
+
+"nmap -sV localhost"
+
+"nmap www.simplycyber.io</p>
+
+![image](https://github.com/user-attachments/assets/138896ce-d951-4dbf-a5df-8b0b0b72380a)
+
+<h2>Create an Alert</h2>
+
+<p>On the top right search up "Rules", click create rule
+
+Select "elasticsearch query"
+
+Select KQL Query and define the query as
+
+event.action: "nmap_scan"
+
+For the action, click email and fill out the email to send the alerts to. The subject can be something like "NMap Scan Detected"</p>
+
+![image](https://github.com/user-attachments/assets/76d1b9ab-877c-42bf-9a6c-fb5df261fbdd)
+
+![image](https://github.com/user-attachments/assets/e1d0ca59-3f36-40ec-a536-70e852d50201)
+
+<hr>
+
+<p>In this tutorial, we have set up a home lab using Elastic SIEM and a Kali VM. We forwarded data from the Kali VM to the SIEM using the Elastic Beats agent, generated security events on the Kali VM using Nmap, and queried and analyzed the logs in the SIEM using the Elastic web interface. We also created a dashboard to visualize security events and then created an alert to detect security events.</p>
