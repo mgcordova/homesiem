@@ -7,6 +7,7 @@ This tutorial outlines how to set up a basic home SIEM with Elastic, configure e
 
 - Elastic SIEM
 - Linux Kali VM
+- VirtualBox
 
 <h2>Operating Systems Used </h2>
 
