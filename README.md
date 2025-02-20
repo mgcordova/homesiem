@@ -1,6 +1,6 @@
 <p align="center"><img src="https://images.contentstack.io/v3/assets/bltefdd0b53724fa2ce/blt0a8f8d63938463bc/5d01b52bae9baaf01450ac67/introducing-elastic-siem-2.png" alt="osTicket logo"/></p>
 
-<h1>Create a Home SOC and Analyze Real-World Attack Data</h1>
+<h1>Create a Home SIEM and Monitor Security Events & Analyze</h1>
 This tutorial outlines how to set up a basic home SIEM with Elastic, configure elastic agents for collection, deploy a Kali Linux VM, generate and analyze security events using Nmap on Kali Linux.<br/>
 
 <h2>Environments and Technologies Used</h2>
